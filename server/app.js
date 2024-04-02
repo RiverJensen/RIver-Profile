@@ -1,10 +1,11 @@
-import  express  from "express";
+import express from "express";
 import morgan from "morgan";
-import ViteExpress from "vite-express"
-import  session  from "express-session";
+import ViteExpress from "vite-express";
+import session from "express-session";
 
-const app = express()
-const port = "1088"
+const app = express();
+const port = "1088";
+ViteExpress.config({ printViteDevServerHost: true });
 
 app.use(morgan("dev"));
 app.use(express.urlencoded({ extended: false }));
