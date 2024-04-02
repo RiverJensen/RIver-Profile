@@ -1,10 +1,23 @@
 import { useState } from 'react'
+import axios from 'axios';
 import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import viteLogo from './assets/vite.svg'
 import './App.css'
 
 function App() {
   const [count, setCount] = useState(0)
+
+  const [imageUrl, setImageUrl] = useState(null);
+
+  const fetchImage = async () => {
+    try {
+      const response = await axios.get('https://api.thecatapi.com/v1/images/search?order=random&format=gif');
+      const imageUrl = response.data[0].url;
+      setImageUrl(imageUrl);
+    } catch (error) {
+      console.error('Error fetching image:', error);
+    }
+  };
 
   return (
     <>
@@ -29,6 +42,10 @@ function App() {
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
+      <div>
+      <button onClick={fetchImage}>Fetch Image</button>
+      {imageUrl && <img src={imageUrl} alt="Cat" />}
+    </div>
     </>
   )
 }

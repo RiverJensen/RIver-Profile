@@ -5,7 +5,7 @@ import session from "express-session";
 
 const app = express();
 const port = "1088";
-ViteExpress.config({ printViteDevServerHost: true });
+
 
 app.use(morgan("dev"));
 app.use(express.urlencoded({ extended: false }));
