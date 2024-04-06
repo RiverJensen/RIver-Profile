@@ -40,6 +40,11 @@ const NavBar = () => {
           </a>
 
 
+
+          <a href= "/Project"> Project page </a>
+    <a href='/About'> About page</a>
+
+
     </div>
   )
 }

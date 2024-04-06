@@ -7,7 +7,7 @@ const HomePage = () => {
 
     <ApiRequest/>
     <div>HomePage</div>
-    <a href= "/Project"> Project page </a>
+    
 
     </>
   )
