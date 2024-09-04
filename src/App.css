@@ -4,3 +4,55 @@
   padding: 2rem;
   text-align: center;
 }
+
+body {
+  font-family: "Lato", sans-serif;
+}
+
+.sidebar {
+  height: 100%;
+  width: 0; /* Initial width is 0 (closed) */
+  position: fixed; /* Fixed Sidebar (stay in place) */
+  z-index: 1; /* Stay on top */
+  top: 0;
+  left: 0;
+  background-color: #111; /* Black background color */
+  overflow-x: hidden; /* Disable horizontal scroll */
+  transition: 0.5s; /* Transition effect for sliding */
+  padding-top: 60px; /* Place content 60px from the top */
+}
+
+.sidebar a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidebar a:hover {
+  color: #f1f1f1;
+}
+
+.sidebar .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+.open-btn {
+  font-size: 20px;
+  cursor: pointer;
+  background-color: #111;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+}
+
+.main {
+  margin-left: 200px; /* Adjust margin when sidebar is open */
+  transition: margin-left 0.5s; /* Smooth transition effect */
+}

@@ -1,0 +1,32 @@
+
+.hamburger-btn {
+  font-size: 30px;  /* Increase the size for visibility */
+  cursor: pointer;
+  background-color: transparent;  /* No background */
+  color: white;  /* Adjust color to match your design */
+  border: none;
+  padding: 10px 15px;  /* Some padding for spacing */
+  text-decoration: none;
+  margin: 10px;  /* Adjust margins if needed */
+  position: absolute;  /* Position it in the top left corner */
+  top: 15px;
+  left: 20px;
+  z-index: 2;  /* Ensure it stays on top */
+  display: block; /* Ensure it's always visible */
+}
+.navbar ul {
+  
+  list-style-type: none;  /* Removes the dots */
+  padding: 0;  /* Removes default padding */
+  margin: 0;  /* Removes default margin */
+  
+}
+
+
+.navbar-logo {
+  display: flex;
+  align-items: center;
+}
+
+/* Other existing styles */
+
