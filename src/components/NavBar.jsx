@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "../css/navbar.css";
+import { Link } from "react-router-dom";
 
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false); // Ensure this is false initially
@@ -51,9 +52,10 @@ const NavBar = () => {
           )}
           {/* Sidebar Links */}
           <ul>
-            <li><a href="/">Home page</a></li>
-            <li><a href="/Project">Project page</a></li>
-            <li><a href="/About">About page</a></li>
+            <li><a href="/" >Home page</a></li>
+            <li><a href="/Project" >Project page</a></li>
+            <li><a href="/About" >About page</a></li>
+           <li> test <Link/> </li>
           </ul>
         </div>
       </div>

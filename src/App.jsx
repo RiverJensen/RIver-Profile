@@ -1,4 +1,5 @@
 import { useState } from "react";
+import React,{useEffect} from "react";
 import axios from "axios";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "./assets/vite.svg";
@@ -19,6 +20,8 @@ import ProjectPage from "./components/ProjectPage";
 import AboutPage from "./components/AboutPage";
 import Root from "./Root";
 
+import Flag from  "./assets/USA.jpeg"
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Root />}>
@@ -30,7 +33,24 @@ const router = createBrowserRouter(
 );
 
 function App() {
-  return <RouterProvider router={router} />;
+  useEffect(() => {
+    document.title = "River Profile "; 
+  }, []); 
+
+  const link = document.querySelector("link[rel='icon']") || document.createElement('link');
+    link.rel = 'icon';
+    link.href = Flag; // Use the imported image
+    document.head.appendChild(link);
+
+  return ( <div>
+  
+  <RouterProvider router={router}/>
+
+  {/* <img src={Flag} alt="Logo" width={100} height={100} /> */}
+
+</div>
+  
+  )
 }
 
 export default App;
