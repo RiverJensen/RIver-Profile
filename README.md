@@ -1,6 +1,6 @@
 # React + Vite
 
-This is a side 
+This is a site where i will have my resume and stuff about me so pepole can see i am not a robot 
 
 
 
