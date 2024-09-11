@@ -4,6 +4,7 @@ import TopBanner from './TopBanner'
 import "../css/home.css"
 import RiverResume from './RiverResume'
 import Links from './Links'
+import HomePageInfo from './HomePageInfo'
 
 const HomePage = () => {
   return (
@@ -12,9 +13,9 @@ const HomePage = () => {
    
     <h1>HomePage</h1>
 
-<TopBanner/>
-<RiverResume/>
-<Links/>
+
+<HomePageInfo/>
+
     
 
     </div>

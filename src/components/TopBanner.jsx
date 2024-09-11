@@ -1,12 +1,12 @@
 import React from 'react'
-import Tree from "../assets/Tree.jpeg"
+import Tree from "../assets/CleanMntPic.jpeg"
 
 function TopBanner() {
   return (
     <div>
 
 
-<img src={Tree} alt='Tree' className='Tree' />
+
 
 
     </div>
