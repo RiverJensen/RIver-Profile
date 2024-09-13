@@ -21,8 +21,10 @@ function Links() {
   };
 
   const linkInLink = () => {
-    window.location.href =
-      "https://www.linkedin.com/in/river-jensen-2a6ba5293/";
+
+    window.open("https://www.linkedin.com/in/river-jensen-2a6ba5293/","_blank","noopener,noreferrer")
+    
+      
   };
 
   return (

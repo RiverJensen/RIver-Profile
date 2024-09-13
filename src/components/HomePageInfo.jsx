@@ -2,6 +2,7 @@ import React from 'react'
 import "../css/home.css"
 import Links from './Links'
 import RiverResume from './RiverResume'
+import ApiRequest from './ApiRequest'
 
 function HomePageInfo() {
   return (
@@ -11,6 +12,8 @@ function HomePageInfo() {
     
     
     <RiverResume/>
+
+   
     
     <Links/>
     
