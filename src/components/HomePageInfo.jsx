@@ -3,6 +3,7 @@ import "../css/home.css"
 import Links from './Links'
 import RiverResume from './RiverResume'
 import ApiRequest from './ApiRequest'
+import Game from './Game'
 
 function HomePageInfo() {
   return (
@@ -12,6 +13,7 @@ function HomePageInfo() {
     
     
     <RiverResume/>
+    <Game/>
 
    
     

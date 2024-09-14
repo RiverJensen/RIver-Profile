@@ -2,6 +2,7 @@ import express from "express";
 import morgan from "morgan";
 import ViteExpress from "vite-express";
 import session from "express-session";
+import handlerFunction from "./controller.js"
 
 const app = express();
 const port = "1088";
@@ -19,6 +20,11 @@ app.use(
   })
 );
 
+app.post(`/addUser`,handlerFunction.addUser)
+
 ViteExpress.listen(app, port, () =>
   console.log(`Server is listening on http://localhost:${port}`)
 );
+
+
+// controller 

@@ -7,6 +7,12 @@ import Links from './Links'
 import HomePageInfo from './HomePageInfo'
 
 const HomePage = () => {
+
+
+
+
+  
+
   return (
     <div>
 

@@ -1,0 +1,32 @@
+/* Styles for the Coin Flip game */
+.coin-flip-game {
+    text-align: center;
+    margin-top: 50px;
+  }
+  
+  .flip-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: blue;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+  }
+  
+  .flip-button:hover {
+    background-color: #45a049;
+  }
+  
+  .result {
+    margin: 20px 0;
+    font-size: 24px;
+  }
+  
+  .flip-info {
+    margin-top: 20px;
+    font-size: 18px;
+  }
+  
