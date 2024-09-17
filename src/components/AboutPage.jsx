@@ -3,6 +3,8 @@ import MyImage from "../assets/mepictrue.jpeg"
 import "../css/about.css"
 
 
+
+
 const AboutPage = () => {
   return (
     <div>AboutPage

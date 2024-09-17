@@ -1,40 +1,41 @@
 import React, { useState } from 'react';
-import axios from 'axios'; // Import axios
-import '../css/game.css'; // Import external CSS file
+import axios from 'axios'; 
+import '../css/game.css'; 
 
 function CoinFlip() {
-  const [side, setSide] = useState(null); // Store result (Heads/Tails)
-  const [flipCount, setFlipCount] = useState(0); // Track number of flips
-  const [score, setScore] = useState(0); // Track player's score
-  const [highScore, setHighScore] = useState(0); // Track high score
-  const [playerName, setPlayerName] = useState(''); // Track player's name
-  const [message, setMessage] = useState(''); // Display success or error messages
+  const [side, setSide] = useState(null); 
+  const [flipCount, setFlipCount] = useState(0); 
+  const [score, setScore] = useState(0); 
+  const [highScore, setHighScore] = useState(0); 
+  const [playerName, setPlayerName] = useState(''); 
+  const [message, setMessage] = useState(''); 
 
-  // Function to reset the game
+  
   const resetGame = () => {
-    setSide(null); // Reset the result
-    setFlipCount(0); // Reset the flip count
-    setScore(0); // Reset the score
+    setSide(null); 
+    setFlipCount(0); 
+    setScore(0); 
   };
 
-  // Function to flip the coin
+  
   const flipCoin = () => {
-    const result = Math.random() < 0.5 ? 'Heads' : 'Tails'; // Randomize heads or tails
+    const result = Math.random() < 0.5 ? 'Heads' : 'Tails'; 
     setSide(result);
-    setFlipCount(flipCount + 1); // Increase flip count
+    console.log(result);
+    setFlipCount(flipCount + 1); 
 
     if (result === 'Heads') {
-      setScore(score + 1); // Gain 1 point for Heads
+      setScore(score + 1); 
     } else {
       // When result is "Tails"
       if (score > highScore) {
-        setHighScore(score); // Save the high score if current score is higher
+        setHighScore(score); 
       }
-      resetGame(); // Reset the game after hitting Tails
+      resetGame();
     }
   };
 
-  // Function to save the score and name to the backend using Axios
+  
   const saveScore = async () => {
     if (!playerName) {
       setMessage('Please enter your name.');
@@ -70,7 +71,6 @@ function CoinFlip() {
         placeholder="Enter your name"
       />
       
-      {/* Display Player Name */}
       {playerName && <h2>Player: {playerName}</h2>}
 
       <div className="result">
@@ -86,12 +86,10 @@ function CoinFlip() {
         <h3>Score: {score}</h3>
         <h3>High Score: {highScore}</h3>
 
-        {/* Save Score Button */}
         <button onClick={saveScore} className="save-button">
           Save Score
         </button>
 
-        {/* Message for success or error */}
         {message && <p>{message}</p>}
       </div>
     </div>

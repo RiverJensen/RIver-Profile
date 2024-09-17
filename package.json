@@ -6,6 +6,8 @@
   "scripts": {
     "dev": "vite",
     "start": "nodemon ./server/app.js -w ./server/app.js -w ./server/app.js",
+    "seed": "dropdb --if-exists project_db && createdb project_db && node db/seed.js",
+
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
