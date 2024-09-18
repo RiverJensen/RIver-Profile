@@ -1,4 +1,4 @@
-import {User} from "./model.js";
+import {User, db} from "./model.js";
 
 console.log("Database synced successfully!");
 

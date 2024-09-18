@@ -1,4 +1,5 @@
-// import User from "../database/model.js";
+import {User } from "../database/model.js";
+
 import { Op } from "sequelize";
 
 const handlerFunction = {
@@ -39,6 +40,28 @@ const handlerFunction = {
       });
     } catch (error) {
       res.status(500).json({ message: "Error adding user", error });
+    }
+  },
+
+  getUserInfo: async (req, res) => {
+    try {
+      const users = await User.findAll({
+        where: {
+          username: username,
+          score: score,
+          userId: userId,
+        },
+      });
+
+      // If no users are found
+      if (!users || users.length === 0) {
+        return res.status(404).json({ message: "No users found" });
+      }
+
+      // Send the list of users with their username and score
+      res.json({ users });
+    } catch (error) {
+      res.status(500).json({ message: "Error getting users info", error });
     }
   },
 };

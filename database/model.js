@@ -1,35 +1,42 @@
-// import { DataType , Model } from "sequelize";
-// import until from "util";
-// import connectToDB from "./db.js";
+import { DataTypes, Model } from "sequelize";
 
-// export const db = await connectToDB("postgresql:///project_db");
+// import { DataType } from "sequelize";
+import until from "util";
+import connectToDB from "./db.js";
 
-// export class User extends Model {
-//     [until.inspect.custom](){
-//         return this.toJSON()
-//     }
-// }
+export const db = await connectToDB("postgresql:///riverproject_db");
 
-// User.init(
-//     {
-//         userId: {
-//             type: DataType.INTEGER,
-//             primaryKey: true,
-//             autoIncrement: true,
-//         },
-//         username: {
-//             type: DataType.STRING,
-//             allowNull: false,
-//             unique: true,
-//         },
-//         score: {
-//             type: DataType.INTEGER,
-//             allowNull: false,
-//         },
-//     },
+export class User extends Model {
+    [until.inspect.custom](){
+        return this.toJSON()
+    }
+}
 
-//     {
-//         sequelize: db,
-//         modelName: "user",
-//     }
-// )
+User.init(
+    {
+        userId: {
+            type: DataTypes.INTEGER,
+            primaryKey: true,
+            autoIncrement: true,
+        },
+        username: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            unique: true,
+        },
+        score: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+        },
+    },
+
+    {
+        sequelize: db,
+        modelName: "user",
+    }
+)
+
+console.log('User:', User);  // Should print the User model or undefined if not exported correctly
+
+
+export default User

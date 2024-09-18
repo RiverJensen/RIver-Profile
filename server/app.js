@@ -10,8 +10,8 @@ const port = "1088";
 
 app.use(morgan("dev"));
 app.use(express.urlencoded({ extended: false }));
-app.use(express.static("public"));
 app.use(express.json());
+app.use(express.static("public"));
 app.use(
   session({
     secret: "ssshhhhh",
@@ -21,6 +21,7 @@ app.use(
 );
 
 app.post(`/addUser`,handlerFunction.addUser)
+app.get(`/getUserInfo`,handlerFunction.getUserInfo)
 
 ViteExpress.listen(app, port, () =>
   console.log(`Server is listening on http://localhost:${port}`)

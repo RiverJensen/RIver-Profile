@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios'; 
 import '../css/game.css'; 
+import Scoreboard from './Scoreboard';
 
 function CoinFlip() {
   const [side, setSide] = useState(null); 
@@ -21,7 +22,7 @@ function CoinFlip() {
   const flipCoin = () => {
     const result = Math.random() < 0.5 ? 'Heads' : 'Tails'; 
     setSide(result);
-    console.log(result);
+    
     setFlipCount(flipCount + 1); 
 
     if (result === 'Heads') {
@@ -44,7 +45,7 @@ function CoinFlip() {
 
     try {
       const addUser = await axios.put(`/addUser`, {
-        name: playerName,
+        username: playerName,
         score: score,
       });
 
@@ -91,6 +92,9 @@ function CoinFlip() {
         </button>
 
         {message && <p>{message}</p>}
+
+
+        <Scoreboard/>
       </div>
     </div>
   );
