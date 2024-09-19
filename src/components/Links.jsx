@@ -29,7 +29,7 @@ function Links() {
 
   return (
     <div>
-      ProjectPage
+      
       <i
         class="bi bi-github"
         onClick={gitHubLink}

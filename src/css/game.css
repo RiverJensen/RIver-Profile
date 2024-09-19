@@ -39,5 +39,56 @@
   }
 
 
+/* General styling */
+.scoreboard-container {
+  max-width: 400px;  /* Adjust the container width */
+  margin: 0 auto;
+  padding: 15px;
+  border: 1px solid black;
+  border-radius: 8px;
   
+}
+
+.scoreboard-title {
+  text-align: center;
+  font-size: 20px;  /* Smaller title font size */
+  margin-bottom: 15px;
+  color: black;
+}
+
+/* List of scores */
+.scoreboard-list {
+  display: flex;
+  flex-direction: column;
+  color: black;
+}
+
+/* Individual username-score boxes */
+.scoreboard-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px;  /* Less padding */
+  border: 1px solid #ccc;
+  border-radius: 4px;  /* Smaller border radius */
   
+  align-items: center; /* Align items vertically centered */
+}
+
+/* Styling for usernames and scores */
+.username-box, .score-box {
+  text-align: center;
+  font-size: 14px;  /* Smaller font size */
+  margin: 0;  /* Remove any default margin */
+  padding: 0;  /* Remove any default padding */
+}
+
+/* Optional: add some background colors to differentiate */
+.username-box {
+  
+  color: black;
+}
+
+.score-box {
+  
+  color: black;
+}

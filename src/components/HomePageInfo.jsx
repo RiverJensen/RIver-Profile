@@ -7,12 +7,12 @@ import Game from './Game'
 
 function HomePageInfo() {
   return (
-    <div className='home-page-info'>HomePageInfo
+    <div className='home-page-info'>
     
     
     
     
-    <RiverResume/>
+    {/* <RiverResume/> */}
     <Game/>
 
    

@@ -28,7 +28,7 @@ const ProjectPage = () => {
 
   return (
     <div>
-      ProjectPage
+      
       
       <img
       src={githubimg}

@@ -36,7 +36,7 @@ User.init(
     }
 )
 
-console.log('User:', User);  // Should print the User model or undefined if not exported correctly
+
 
 
 export default User
