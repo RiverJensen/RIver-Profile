@@ -4,8 +4,9 @@
     margin-top: 50px;
     margin-left: 300px;
     margin-right: 300px;
-    background-color: rgb(255, 255, 255, 0.65);
+    background-color: rgba(0, 0, 0, 0.75);
     border-radius: 10px;
+    padding: 10px;
   }
   
   .flip-button {
@@ -27,10 +28,10 @@
   
   .result {
    border-radius: 5px;
-   border-color: black 2px solid;
-
+   border-color: gray 2px solid;
     margin: 20px 0;
     font-size: 24px;
+    padding: auto;
   }
   
   .flip-info {
@@ -44,7 +45,8 @@
   max-width: 400px;  /* Adjust the container width */
   margin: 0 auto;
   padding: 15px;
-  border: 1px solid black;
+  padding-top: 10px;
+  border: 1px solid gray;
   border-radius: 8px;
   
 }
@@ -53,14 +55,15 @@
   text-align: center;
   font-size: 20px;  /* Smaller title font size */
   margin-bottom: 15px;
-  color: black;
+  color : white;
+  border: color gray 100px solid;
 }
 
 /* List of scores */
 .scoreboard-list {
   display: flex;
   flex-direction: column;
-  color: black;
+  color: rgba(46, 230, 230, 0.9);
 }
 
 /* Individual username-score boxes */
@@ -80,15 +83,16 @@
   font-size: 14px;  /* Smaller font size */
   margin: 0;  /* Remove any default margin */
   padding: 0;  /* Remove any default padding */
+  color: gray;
 }
 
 /* Optional: add some background colors to differentiate */
 .username-box {
   
-  color: black;
+  color: rgba(46, 230, 230, 0.9);
 }
 
 .score-box {
   
-  color: black;
+  color: rgba(46, 230, 230, 0.9);
 }

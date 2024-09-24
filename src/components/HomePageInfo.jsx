@@ -13,11 +13,11 @@ function HomePageInfo() {
     
     
     {/* <RiverResume/> */}
-    <Game/>
+   
 
    
     
-    <Links/>
+   
     
     
     

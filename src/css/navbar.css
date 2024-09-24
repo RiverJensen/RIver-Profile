@@ -2,9 +2,9 @@
 .hamburger-btn {
   font-size: 30px;  
   cursor: pointer;
-  background-color: transparent; 
+  background-color: rgba(0, 0, 0, .75);
   color: whitesmoke;  
-  border: black;
+  border-radius: 75%  75% 75%  75%;
   padding: 10px 15px;  /* Some padding for spacing */
   text-decoration: none;
   margin: 10px;  /* Adjust margins if needed */
