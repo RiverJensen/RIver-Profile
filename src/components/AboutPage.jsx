@@ -19,7 +19,7 @@ const AboutPage = () => {
 
       
   
-{/* <img src={MyImage} alt="my image" className='mepic' /> */}
+<img src={MyImage} alt="my image" className='mepic' />
 
   
   

@@ -11,8 +11,10 @@ const HomePage = () => {
   return (
     <div>
       <HomePageInfo />
+     
 
       <Game />
+
 
       <Links />
     </div>

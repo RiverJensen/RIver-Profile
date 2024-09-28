@@ -39,7 +39,7 @@ function App() {
 
   const link = document.querySelector("link[rel='icon']") || document.createElement('link');
     link.rel = 'icon';
-    link.href = Flag; // Use the imported image
+    link.href = Flag; 
     document.head.appendChild(link);
 
   return ( <div>

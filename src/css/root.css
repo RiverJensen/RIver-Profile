@@ -1,10 +1,10 @@
 
 .background {
-    position: absolute; /* Positions the image absolutely */
+    position: absolute; 
     top: 0;
     left: 0;
-    width: 100vw; /* Full viewport width */
-    height: 100vh; /* Full viewport height */
-    object-fit: cover; /* Scales the image to cover the area */
+    width: 100vw; 
+    height: 100vh; 
+    object-fit: cover;
     z-index: -1; /* Places the image behind other content */
 }

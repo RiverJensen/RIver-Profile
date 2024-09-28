@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import "../css/game.css";
 import Scoreboard from "./Scoreboard";
+import QuarterTails from "../assets/QuarterTails.png";
+import QuarterHead from "../assets/QuarterHead.png";
 
 function CoinFlip() {
   const [side, setSide] = useState(null);
@@ -9,6 +11,7 @@ function CoinFlip() {
   const [score, setScore] = useState(0);
   const [playerName, setPlayerName] = useState("");
   const [message, setMessage] = useState("");
+  const [flipping, setFlipping] = useState(false);  // New state for flip animation
 
   const resetGame = () => {
     setSide(null);
@@ -17,15 +20,24 @@ function CoinFlip() {
   };
 
   const flipCoin = () => {
-    const result = Math.random() < 0.99 ? "Heads" : "Tails";
-    setSide(result);
-    setFlipCount(flipCount + 1);
+    if (flipping) return; // Prevent double flips during animation
 
-    if (result === "Heads") {
-      setScore(score + 1);
-    } else {
-      resetGame();
-    }
+    setFlipping(true); // Start the flip animation
+
+    const result = Math.random() < 0.50 ? QuarterHead : QuarterTails;
+    
+    setTimeout(() => {
+      setSide(result);
+      setFlipCount(flipCount + 1);
+
+      if (result === QuarterHead) {
+        setScore(score + 1);
+      } else {
+        resetGame();
+      }
+
+      setFlipping(false); // End the flip after animation completes
+    }, 800);  // Match this delay with the duration of the animation
   };
 
   const saveScore = async () => {
@@ -67,11 +79,15 @@ function CoinFlip() {
       {playerName && <h2>Player: {playerName}</h2>}
 
       <div className="result">
-        {side ? <h2>Result: {side}</h2> : <h2>Click to Flip!</h2>}
+        <img
+          src={side || QuarterTails} 
+          alt="Coin side"
+          className={`quarter-image ${flipping ? 'flip' : ''}`}  // Apply the flip class when flipping
+        />
       </div>
 
-      <button onClick={flipCoin} className="flip-button">
-        Flip Coin
+      <button onClick={flipCoin} className="flip-button" disabled={flipping}>
+        {flipping ? 'Flipping...' : 'Flip Coin'}
       </button>
 
       <div className="flip-info">

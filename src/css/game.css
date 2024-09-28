@@ -39,10 +39,33 @@
     font-size: 18px;
   }
 
+  @keyframes flipCoin {
+    0% {
+      transform: rotateY(0deg);
+    }
+    50% {
+      transform: rotateY(90deg); /* At the halfway point, coin shows its edge */
+    }
+    100% {
+      transform: rotateY(1080deg); /* Full rotation back to front */
+    }
+  }
+  
+  .quarter-image {
+    width: 200px;
+    height: 200px;
+    transition: transform 0.8s;
+  }
+  
+  .flip {
+    animation: flipCoin .7s ease-in-out forwards; /* 0.8s flip animation */
+  }
+  
 
-/* General styling */
+
+
 .scoreboard-container {
-  max-width: 400px;  /* Adjust the container width */
+  max-width: 400px;  
   margin: 0 auto;
   padding: 15px;
   padding-top: 10px;
@@ -53,36 +76,32 @@
 
 .scoreboard-title {
   text-align: center;
-  font-size: 20px;  /* Smaller title font size */
+  font-size: 20px;  
   margin-bottom: 15px;
   color : white;
   border: color gray 100px solid;
 }
 
-/* List of scores */
 .scoreboard-list {
   display: flex;
   flex-direction: column;
   color: rgba(46, 230, 230, 0.9);
 }
 
-/* Individual username-score boxes */
 .scoreboard-item {
   display: flex;
   justify-content: space-between;
-  padding: 8px;  /* Less padding */
+  padding: 8px; 
   border: 1px solid #ccc;
-  border-radius: 4px;  /* Smaller border radius */
-  
-  align-items: center; /* Align items vertically centered */
+  border-radius: 4px;  
+  align-items: center; 
 }
 
-/* Styling for usernames and scores */
 .username-box, .score-box {
   text-align: center;
-  font-size: 14px;  /* Smaller font size */
-  margin: 0;  /* Remove any default margin */
-  padding: 0;  /* Remove any default padding */
+  font-size: 14px;  
+  margin: 0;  
+  padding: 0;  
   color: gray;
 }
 
