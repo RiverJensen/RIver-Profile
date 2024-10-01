@@ -11,7 +11,7 @@ function CoinFlip() {
   const [score, setScore] = useState(0);
   const [playerName, setPlayerName] = useState("");
   const [message, setMessage] = useState("");
-  const [flipping, setFlipping] = useState(false);  // New state for flip animation
+  const [flipping, setFlipping] = useState(false); // New state for flip animation
 
   const resetGame = () => {
     setSide(null);
@@ -24,8 +24,8 @@ function CoinFlip() {
 
     setFlipping(true); // Start the flip animation
 
-    const result = Math.random() < 0.50 ? QuarterHead : QuarterTails;
-    
+    const result = Math.random() < 0.5 ? QuarterHead : QuarterTails;
+
     setTimeout(() => {
       setSide(result);
       setFlipCount(flipCount + 1);
@@ -37,7 +37,7 @@ function CoinFlip() {
       }
 
       setFlipping(false); // End the flip after animation completes
-    }, 800);  // Match this delay with the duration of the animation
+    }, 800); // Match this delay with the duration of the animation
   };
 
   const saveScore = async () => {
@@ -54,7 +54,7 @@ function CoinFlip() {
 
       if (response.status === 200) {
         setMessage("Score saved successfully!");
-        resetGame(); 
+        resetGame();
         window.location.reload();
       } else {
         setMessage("Failed to save score.");
@@ -80,14 +80,14 @@ function CoinFlip() {
 
       <div className="result">
         <img
-          src={side || QuarterTails} 
+          src={side || QuarterTails}
           alt="Coin side"
-          className={`quarter-image ${flipping ? 'flip' : ''}`}  // Apply the flip class when flipping
+          className={`quarter-image ${flipping ? "flip" : ""}`} // Apply the flip class when flipping
         />
       </div>
 
       <button onClick={flipCoin} className="flip-button" disabled={flipping}>
-        {flipping ? 'Flipping...' : 'Flip Coin'}
+        {flipping ? "Flipping..." : "Flip Coin"}
       </button>
 
       <div className="flip-info">

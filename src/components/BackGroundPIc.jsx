@@ -1,22 +1,13 @@
-import React from 'react'
+import React from "react";
 
-import Background from "../assets/CleanMntPic.jpeg"
-
-
-
-
+import Background from "../assets/CleanMntPic.jpeg";
 
 function BackGroundPIc() {
   return (
     <div>
-        
-        
-        <img src={Background} alt='background' className='background' />
-
-        
-        
-        </div>
-  )
+      <img src={Background} alt="background" className="background" />
+    </div>
+  );
 }
 
-export default BackGroundPIc
+export default BackGroundPIc;

@@ -5,3 +5,9 @@
   
 }
 
+body, html {
+  overflow-y: scroll;  /* Global vertical scrolling */
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}

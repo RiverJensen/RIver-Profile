@@ -1,84 +1,80 @@
 /* Styles for the Coin Flip game */
 .coin-flip-game {
-    text-align: center;
-    margin-top: 50px;
-    margin-left: 300px;
-    margin-right: 300px;
-    background-color: rgba(0, 0, 0, 0.75);
-    border-radius: 10px;
-    padding: 10px;
-  }
-  
-  .flip-button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    font-size: 18px;
-    background-color: none;
-    color: rgba(46, 230, 230, 0.9);
-    border: black 2px solid;
-    cursor: pointer;
-    border-radius: 100px;
-    transition: background-color 0.3s;
-  }
-  
-  .flip-button:hover {
-    background-color: rgba(46, 230, 230, 0.9);
-    color: gray;
-  }
-  
-  .result {
-   border-radius: 5px;
-   border-color: gray 2px solid;
-    margin: 20px 0;
-    font-size: 24px;
-    padding: auto;
-  }
-  
-  .flip-info {
-    margin-top: 20px;
-    font-size: 18px;
-  }
+  text-align: center;
+  margin-top: 50px;
+  margin-left: 300px;
+  margin-right: 300px;
+  background-color: rgba(0, 0, 0, 0.75);
+  border-radius: 10px;
+  padding: 10px;
+}
 
-  @keyframes flipCoin {
-    0% {
-      transform: rotateY(0deg);
-    }
-    50% {
-      transform: rotateY(90deg); /* At the halfway point, coin shows its edge */
-    }
-    100% {
-      transform: rotateY(1080deg); /* Full rotation back to front */
-    }
-  }
-  
-  .quarter-image {
-    width: 200px;
-    height: 200px;
-    transition: transform 0.8s;
-  }
-  
-  .flip {
-    animation: flipCoin .7s ease-in-out forwards; /* 0.8s flip animation */
-  }
-  
+.flip-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 18px;
+  background-color: none;
+  color: rgba(46, 230, 230, 0.9);
+  border: black 2px solid;
+  cursor: pointer;
+  border-radius: 100px;
+  transition: background-color 0.3s;
+}
 
+.flip-button:hover {
+  background-color: rgba(46, 230, 230, 0.9);
+  color: gray;
+}
 
+.result {
+  border-radius: 5px;
+  border-color: gray 2px solid;
+  margin: 20px 0;
+  font-size: 24px;
+  padding: auto;
+}
+
+.flip-info {
+  margin-top: 20px;
+  font-size: 18px;
+}
+
+@keyframes flipCoin {
+  0% {
+    transform: rotateY(0deg);
+  }
+  50% {
+    transform: rotateY(90deg); /* At the halfway point, coin shows its edge */
+  }
+  100% {
+    transform: rotateY(1080deg); /* Full rotation back to front */
+  }
+}
+
+.quarter-image {
+  width: 200px;
+  height: 200px;
+  transition: transform 0.8s;
+}
+
+.flip {
+  animation: flipCoin 0.7s ease-in-out forwards; /* 0.8s flip animation */
+}
 
 .scoreboard-container {
-  max-width: 400px;  
+  max-width: 400px;
   margin: 0 auto;
   padding: 15px;
   padding-top: 10px;
   border: 1px solid gray;
   border-radius: 8px;
-  
 }
 
 .scoreboard-title {
   text-align: center;
-  font-size: 20px;  
+  font-size: 20px;
   margin-bottom: 15px;
-  color : white;
+  color: white;
   border: color gray 100px solid;
 }
 
@@ -91,27 +87,26 @@
 .scoreboard-item {
   display: flex;
   justify-content: space-between;
-  padding: 8px; 
+  padding: 8px;
   border: 1px solid #ccc;
-  border-radius: 4px;  
-  align-items: center; 
+  border-radius: 4px;
+  align-items: center;
 }
 
-.username-box, .score-box {
+.username-box,
+.score-box {
   text-align: center;
-  font-size: 14px;  
-  margin: 0;  
-  padding: 0;  
+  font-size: 14px;
+  margin: 0;
+  padding: 0;
   color: gray;
 }
 
 /* Optional: add some background colors to differentiate */
 .username-box {
-  
   color: rgba(46, 230, 230, 0.9);
 }
 
 .score-box {
-  
   color: rgba(46, 230, 230, 0.9);
 }

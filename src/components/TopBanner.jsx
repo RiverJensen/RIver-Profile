@@ -1,16 +1,8 @@
-import React from 'react'
-import Tree from "../assets/CleanMntPic.jpeg"
+import React from "react";
+import Tree from "../assets/CleanMntPic.jpeg";
 
 function TopBanner() {
-  return (
-    <div>
-
-
-
-
-
-    </div>
-  )
+  return <div></div>;
 }
 
-export default TopBanner
+export default TopBanner;

@@ -11,6 +11,8 @@ const HomePage = () => {
   return (
     <div>
       <HomePageInfo />
+
+      <ApiRequest />
      
 
       <Game />

@@ -3,7 +3,7 @@ import "../css/navbar.css";
 import { Link } from "react-router-dom";
 
 const NavBar = () => {
-  const [isOpen, setIsOpen] = useState(false); 
+  const [isOpen, setIsOpen] = useState(false);
   const [isHovered, setHovered] = useState(false);
 
   const toggleNav = () => {
@@ -30,10 +30,10 @@ const NavBar = () => {
             onMouseLeave={handleMouseLeave}
             style={{
               cursor: isHovered ? "pointer" : "default",
-              display: 'block' 
+              display: "block",
             }}
           >
-            &#9776; 
+            &#9776;
           </a>
         )}
 
@@ -49,9 +49,15 @@ const NavBar = () => {
             </a>
           )}
           <ul>
-            <li><a href="/" >Home page</a></li>
-            <li><a href="/Project" >Project page</a></li>
-            <li><a href="/About" >About page</a></li>
+            <li>
+              <a href="/">Home page</a>
+            </li>
+            <li>
+              <a href="/Project">Project page</a>
+            </li>
+            <li>
+              <a href="/About">About page</a>
+            </li>
           </ul>
         </div>
       </div>

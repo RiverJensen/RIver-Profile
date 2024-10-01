@@ -17,19 +17,23 @@ function Links() {
   };
 
   const gitHubLink = () => {
-    window.open("https://github.com/RiverJensen?tab=repositories","_blank","noopener,noreferrer")
+    window.open(
+      "https://github.com/RiverJensen?tab=repositories",
+      "_blank",
+      "noopener,noreferrer"
+    );
   };
 
   const linkInLink = () => {
-
-    window.open("https://www.linkedin.com/in/river-jensen-2a6ba5293/","_blank","noopener,noreferrer")
-    
-      
+    window.open(
+      "https://www.linkedin.com/in/river-jensen-2a6ba5293/",
+      "_blank",
+      "noopener,noreferrer"
+    );
   };
 
   return (
     <div>
-      
       <i
         class="bi bi-github"
         onClick={gitHubLink}
@@ -48,7 +52,6 @@ function Links() {
           cursor: isHovered ? "pointer" : "default",
         }}
       ></i>
-      
     </div>
   );
 }
