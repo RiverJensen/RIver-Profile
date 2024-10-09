@@ -12,7 +12,6 @@ const HomePage = () => {
     <div>
       <HomePageInfo />
 
-      <ApiRequest />
      
 
       <Game />

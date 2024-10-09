@@ -38,16 +38,19 @@ html {
 button {
   padding: 10px 20px;
   font-size: 1em;
-  color: white;
+  color: rgba(46, 230, 230, 0.9);
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  background-color: gray;
   margin: 10px;
+  
 }
 
 button:hover {
-  background-color: #0056b3;
+  color: gray !important;
+
+  background-color: rgba(46, 230, 230, 0.9);
 }
 
 iframe {
