@@ -14,7 +14,7 @@ const HomePage = () => {
 
      
 
-      <Game />
+      {/* <Game /> */}
 
 
       <Links />

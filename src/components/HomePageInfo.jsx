@@ -47,6 +47,15 @@ function HomePageInfo() {
           style={{ border: "none" }}
         />
       )}
+
+
+<div className="content">
+
+      <Game />
+
+      </div>
+
+
     </div>
   );
 }

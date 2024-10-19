@@ -1,0 +1,45 @@
+.repo-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 columns */
+    gap: 20px; /* Space between the boxes */
+    padding: 20px;
+  }
+  
+  .repo-box {
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  
+  .repo-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  .repo-box a {
+    text-decoration: none;
+    color: #1a73e8;
+    font-size: 1.2em;
+    font-weight: bold;
+  }
+  
+  .repo-box p {
+    margin-top: 10px;
+    color: #333;
+  }
+  
+  @media (max-width: 768px) {
+    .repo-container {
+      grid-template-columns: repeat(2, 1fr); /* 2 columns on smaller screens */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .repo-container {
+      grid-template-columns: 1fr; /* 1 column on very small screens */
+    }
+  }
+  

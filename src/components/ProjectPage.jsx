@@ -3,6 +3,7 @@ import "../css/project.css";
 import { useState } from "react";
 import githubimg from "../assets/github.png";
 import linkinimg from "../assets/linkin.png";
+import GithubRepos from "./GitHubRepos";
 
 const ProjectPage = () => {
   const [isHovered, setHovered] = useState(false);
@@ -33,6 +34,16 @@ const ProjectPage = () => {
 
   return (
     <div>
+
+
+      <h1 className="project">Projects</h1>
+
+      <p className="project"> This is a page that list some of the projects I have worked on. </p>
+
+
+      <h2 className="project">this website </h2>
+
+      <p className="project">This website was created using React. It is a single page application that uses React Router to navigate between pages. The website is hosted on GitHub Pages. </p>
       <img
         src={githubimg}
         alt="No Image Found"
@@ -55,6 +66,9 @@ const ProjectPage = () => {
           cursor: isHovered ? "pointer" : "default",
         }}
       />
+
+
+      <GithubRepos />
     </div>
   );
 };

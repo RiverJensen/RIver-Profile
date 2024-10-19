@@ -1,5 +1,5 @@
 /* Styles for the Coin Flip game */
-.coin-flip-game {
+/* .coin-flip-game {
   text-align: center;
   margin-top: 50px;
   margin-left: 300px;
@@ -7,6 +7,18 @@
   background-color: rgba(0, 0, 0, 0.75);
   border-radius: 10px;
   padding: 10px;
+} */
+
+.coin-flip-game  {
+  color: white;
+  font-size: 36px;
+  margin-bottom: 20px;
+  background-color: rgba(0, 0, 0, 0.75);
+
+  border-radius: 10px;
+  padding: 10px;
+
+
 }
 
 .flip-button {
@@ -110,3 +122,5 @@
 .score-box {
   color: rgba(46, 230, 230, 0.9);
 }
+
+
