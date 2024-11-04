@@ -38,13 +38,13 @@ const ProjectPage = () => {
 
       <h1 className="project">Projects</h1>
 
-      <p className="project"> This is a page that list some of the projects I have worked on. </p>
 
 
-      <h2 className="project">this website </h2>
 
-      <p className="project">This website was created using React. It is a single page application that uses React Router to navigate between pages. The website is hosted on GitHub Pages. </p>
-      <img
+      
+      <p className="project">This page use a api request to pull all of my project forom GitHub and display them so you can view them keep in mind some are better then others so your miles may vary  </p>
+      
+      {/* <img
         src={githubimg}
         alt="No Image Found"
         onClick={gitHubLink}
@@ -65,7 +65,7 @@ const ProjectPage = () => {
         style={{
           cursor: isHovered ? "pointer" : "default",
         }}
-      />
+      /> */}
 
 
       <GithubRepos />
