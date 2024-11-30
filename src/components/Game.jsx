@@ -24,7 +24,7 @@ function CoinFlip() {
 
     setFlipping(true); // Start the flip animation
 
-    const result = Math.random() < 0.5 ? QuarterHead : QuarterTails;
+    const result = Math.random() < 0.9 ? QuarterHead : QuarterTails;
 
     setTimeout(() => {
       setSide(result);

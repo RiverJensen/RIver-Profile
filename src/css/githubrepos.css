@@ -1,7 +1,19 @@
+
+
+.project{
+  border: 2px solid black;
+  padding: 10px;
+  border-radius: 10px;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.75);
+}
+
+
+
 .repo-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* 3 columns */
-    gap: 20px; /* Space between the boxes */
+    gap: 10px; /* Space between the boxes */
     padding: 20px;
   }
   

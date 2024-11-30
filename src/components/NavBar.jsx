@@ -40,7 +40,7 @@ const NavBar = () => {
         <div
           id="mySidebar"
           className="sidebar"
-          style={{ width: isOpen ? "250px" : "0" }} // Sidebar opens when isOpen is true
+          style={{ width: isOpen ? "250px" : "0" }} 
         >
           {/* Close Button Inside the Sidebar */}
           {isOpen && (

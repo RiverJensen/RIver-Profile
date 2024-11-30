@@ -5,11 +5,11 @@
   background-color: transparent;
   color: whitesmoke;  
   border-radius: 75%  75% 75%  75%;
-  padding: 10px 15px;  
+  padding: 5px 15px;  
   text-decoration: none;
   margin: 10px;  
-  position: absolute;  
-  left: 20px;
+  position: flex;  
+  left: 10px;
   z-index: 2;  
   display: block; 
 }
