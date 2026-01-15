@@ -1,0 +1,62 @@
+.theme-toggle-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(5px);
+  cursor: pointer;
+  z-index: 2000;
+  overflow: hidden;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.theme-toggle-container:hover {
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.celestial-body {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  left: 15px; /* Center horizontally */
+  transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+/* SUN STYLE */
+.sun {
+  background-color: #ffd700;
+  box-shadow: 0 0 10px #ffd700, 0 0 20px #ffea00;
+  top: 15px; /* Center vertically when visible */
+}
+
+/* MOON STYLE */
+.moon {
+  background-color: transparent;
+  box-shadow: inset -10px -5px 0 0 #f5f5f5; /* Crescent shape via shadow */
+  top: 15px;
+}
+
+/* ANIMATION STATES */
+
+/* Sun States */
+.sun.visible {
+  transform: translateY(0) translateX(0);
+}
+
+.sun.hidden {
+  transform: translateY(60px) translateX(-20px); /* Sets below and to left */
+}
+
+/* Moon States */
+.moon.visible {
+  transform: translateY(0) translateX(0);
+}
+
+.moon.hidden {
+  transform: translateY(60px) translateX(20px); /* Sets below and to right */
+}

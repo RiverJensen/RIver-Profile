@@ -84,7 +84,11 @@ function CoinFlip() {
         <img
           src={side || QuarterTails}
           alt="Coin side"
-          className={`quarter-image ${flipping ? "flip" : ""}`} // Apply the flip class when flipping
+          className={`quarter-image ${flipping ? "flip" : ""}`}
+          onError={(e) => {
+            console.error("Image failed to load:", e.target.src);
+            e.target.src = QuarterTails; // Fallback to tails if head fails
+          }}
         />
       </div>
 
