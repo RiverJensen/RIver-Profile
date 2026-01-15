@@ -1,13 +1,14 @@
 import { DataTypes, Model } from "sequelize";
-
-// import { DataType } from "sequelize";
-import until from "util";
+import util from "util";
 import connectToDB from "./db.js";
 
-export const db = await connectToDB("postgresql:///riverproject_db");
+// Use environment variable for database URI, fallback to default
+const dbURI = process.env.DATABASE_URL || "postgresql:///riverproject_db";
+
+export const db = await connectToDB(dbURI);
 
 export class User extends Model {
-    [until.inspect.custom](){
+    [util.inspect.custom](){
         return this.toJSON()
     }
 }

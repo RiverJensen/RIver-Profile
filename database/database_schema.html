@@ -1,0 +1,519 @@
+<h1 id="database-schema-document">Database Schema Document</h1>
+<p><strong>Version:</strong> 1.0 <strong>Date:</strong> May 6, 2025
+<strong>Author:</strong> Ernesto Jimenez</p>
+<p><strong>Overview:</strong></p>
+<p>This document describes the database schema for the TSOLife LLM
+Pipeline application, focusing on the storage of audio recordings,
+transcriptions, user information, and the data generated and managed by
+the LLM (Large Language Model) information extraction pipeline.</p>
+<p>The database is designed to support a complete workflow from audio
+interview recordings to structured data extraction using RAG
+(Retrieval-Augmented Generation) techniques. The system processes audio
+interviews between senior home communities and their residents,
+transcribes them, and extracts structured information about residents’
+preferences, well-being, and personal histories.</p>
+<h2 id="key-concepts">Key Concepts</h2>
+<h3 id="data-flow-overview">Data Flow Overview</h3>
+<ol type="1">
+<li><strong>Audio Recording</strong>: Audio interviews are stored with
+metadata in the <code>recordings</code> and <code>media</code>
+tables</li>
+<li><strong>Transcription</strong>: Audio is transcribed and stored in
+the <code>transcriptions</code> table</li>
+<li><strong>LLM Processing</strong>: Transcriptions are processed by the
+LLM pipeline, creating entries in <code>llmTranscriptions</code></li>
+<li><strong>Question Processing</strong>: Individual questions are
+processed and responses stored in <code>llmTranscriptionQuestions</code>
+and <code>llmTranscriptionQuestionResponses</code></li>
+<li><strong>Context Management</strong>: Relevant context snippets are
+stored in <code>llmTranscriptionQuestionContext</code></li>
+<li><strong>Review Process</strong>: Human reviewers validate and
+correct LLM responses, updating validity flags</li>
+</ol>
+<h3 id="review-team-workflow">Review Team Workflow</h3>
+<p>A review team validates LLM responses and marks them as
+correct/incorrect using the <code>isValidInd</code> flags. They can also
+provide corrected responses, which are stored with
+<code>isFromLLmInd = 0</code>.</p>
+<p>The <strong>Data-Mine</strong> form used by the Review Team can be
+found here:</p>
+<p>https://tsolife.com/admin/interviews/data-mine/{llmTranscriptions.id}/general-form</p>
+<p>Once saved, this data is transfered to the resident profile, under
+the General Form tab:</p>
+<p>https://tsolife.com/communities/{userRoles.roleableId}/residents/{users.id}’</p>
+<p>Where the variables below are retrieved from the database:</p>
+<ul>
+<li><code>llmTranscriptions.id</code></li>
+<li><code>userRoles.roleableId</code></li>
+<li><code>users.id</code></li>
+</ul>
+<hr />
+<h2 id="table-definitions">Table Definitions</h2>
+<h3 id="recordings">1. <code>recordings</code></h3>
+<ul>
+<li><strong>Description:</strong> Stores metadata and status for audio
+recordings from resident interviews.</li>
+<li><strong>Icon:</strong> <code>audio</code></li>
+<li><strong>Color:</strong> <code>black</code></li>
+<li><strong>Columns:</strong> | Column Name | Data Type |
+Constraints/PK/FK | Description |
+|——————-|———–|—————————————|——————————————————–| | <code>id</code> |
+string | PK | Unique identifier for the recording. | |
+<code>mediaId</code> | string | FK -&gt; <code>media.id</code> |
+Identifier for the associated media file. | | <code>details</code> |
+string | | Additional details or notes about the recording. | |
+<code>userId</code> | string | FK -&gt; <code>users.id</code> |
+Identifier of the user associated with this recording. | |
+<code>interviewedById</code> | string | | Identifier of the user who
+conducted the interview. | | <code>status</code> | string | Enum:
+<code>TRANSCRIBED</code>, <code>UPLOADED</code>, <code>FAILED</code> |
+Current status of the recording. | | <code>type</code> | string | | Type
+or category of the recording. | | <code>durationInSec</code> | number |
+| Length of the audio recording in seconds. | | <code>updatedAt</code> |
+date | | Timestamp of the last update. | | <code>createdAt</code> | date
+| | Timestamp of creation. |</li>
+</ul>
+<h3 id="media">2. <code>media</code></h3>
+<ul>
+<li><strong>Description:</strong> Stores information about media files,
+primarily audio recordings.</li>
+<li><strong>Icon:</strong> <code>audio</code></li>
+<li><strong>Color:</strong> <code>black</code></li>
+<li><strong>Columns:</strong> | Column Name | Data Type |
+Constraints/PK/FK | Description |
+|————–|———–|——————-|————————————————————| | <code>id</code> | string |
+PK | Unique identifier for the media item. | | <code>name</code> | File
+| | Name of the media file. | | <code>parentId</code> | string | |
+Identifier for a parent entity, if applicable. | |
+<code>bucketName</code> | string | | Name of the storage bucket (e.g.,
+GCS bucket). | | <code>resource</code> | string | | Path or identifier
+of the resource within the bucket. | | <code>url</code> | string | |
+Public or signed URL to access the media. | | <code>mediableId</code> |
+string | | Identifier for the entity this media is associated with. | |
+<code>updatedAt</code> | date | | Timestamp of the last update. | |
+<code>createdAt</code> | date | | Timestamp of creation. | |
+<code>deletedAt</code> | date | nullable | Timestamp if the media item
+is soft-deleted. |</li>
+</ul>
+<h3 id="transcriptions">3. <code>transcriptions</code></h3>
+<ul>
+<li><strong>Description:</strong> Stores the transcribed text and status
+from audio recordings.</li>
+<li><strong>Icon:</strong> <code>file</code></li>
+<li><strong>Color:</strong> <code>green</code></li>
+<li><strong>Columns:</strong> | Column Name | Data Type |
+Constraints/PK/FK | Description |
+|————–|———–|————————————-|———————————————————————| | <code>id</code> |
+string | PK | Unique identifier for the transcription. | |
+<code>recordingId</code>| string | FK -&gt; <code>recordings.id</code> |
+Identifier of the audio recording this transcription belongs to. | |
+<code>status</code> | string | Enum: <code>COMPLETED</code>,
+<code>TRANSCRIBING</code>, <code>FAILED</code> | Current status of the
+transcription process. | | <code>detail</code> | string | | Additional
+details or error messages related to the transcription. | |
+<code>plainText</code> | string | | The full transcribed text from the
+audio. | | <code>externalId</code> | string | nullable | Identifier for
+this transcription’s representation (e.g., vector DB). | |
+<code>updatedAt</code> | date | | Timestamp of the last update. | |
+<code>createdAt</code> | date | | Timestamp of creation. | |
+<code>deletedAt</code> | date | nullable | Timestamp if the
+transcription is soft-deleted. |</li>
+</ul>
+<h3 id="users">4. <code>users</code></h3>
+<ul>
+<li><strong>Description:</strong> Stores basic user account
+information.</li>
+<li><strong>Icon:</strong> <code>folder</code></li>
+<li><strong>Color:</strong> <code>gray</code></li>
+<li><strong>Columns:</strong> | Column Name | Data Type |
+Constraints/PK/FK | Description | |————-|———–|——————-|———————————| |
+<code>id</code> | string | PK | Unique identifier for the user. | |
+<code>email</code> | email | Unique | User’s email address. |</li>
+</ul>
+<h3 id="userprofiles">5. <code>userProfiles</code></h3>
+<ul>
+<li><strong>Description:</strong> Stores additional profile information
+for users.</li>
+<li><strong>Icon:</strong> <code>message-circle</code></li>
+<li><strong>Color:</strong> <code>gray</code></li>
+<li><strong>Columns:</strong> | Column Name | Data Type |
+Constraints/PK/FK | Description | |—————–|———–|————————–|—————————————–|
+| <code>id</code> | string | PK | Unique identifier for the user
+profile. | | <code>firstName</code> | string | | User’s first name. | |
+<code>preferredName</code> | string | nullable | User’s preferred name.
+| | <code>lastName</code> | string | | User’s last name. | |
+<code>userId</code> | string | FK -&gt; <code>users.id</code>, Unique |
+Identifier of the associated user. | | <code>updatedAt</code> | date | |
+Timestamp of the last update. | | <code>createdAt</code> | date | |
+Timestamp of creation. |</li>
+</ul>
+<h3 id="userroles">6. <code>userRoles</code></h3>
+<ul>
+<li><strong>Description:</strong> Manages roles assigned to users,
+potentially for different contexts.</li>
+<li><strong>Icon:</strong> <code>mail</code></li>
+<li><strong>Color:</strong> <code>gray</code></li>
+<li><strong>Columns:</strong> | Column Name | Data Type |
+Constraints/PK/FK | Description |
+|————-|———–|——————-|——————————————————–| | <code>id</code> | string | PK
+| Unique identifier for the role assignment. | | <code>userId</code> |
+string | FK -&gt; <code>users.id</code> | Identifier of the user. | |
+<code>roleId</code> | string | | Identifier of the assigned role. | |
+<code>roleableId</code>| string | nullable | Identifier for the entity
+this role is scoped to. | | <code>updatedAt</code> | date | | Timestamp
+of the last update. | | <code>createdAt</code> | date | | Timestamp of
+creation. |</li>
+</ul>
+<h3 id="llmtranscriptions">7. <code>llmTranscriptions</code></h3>
+<ul>
+<li><strong>Description:</strong> Stores metadata about an LLM
+extraction process performed on a transcription. This table represents
+one complete run of the LLM pipeline on a specific transcript,
+processing all questions defined in the system (approximately 85
+questions).</li>
+<li><strong>Icon:</strong> <code>folder</code></li>
+<li><strong>Color:</strong> <code>black</code></li>
+<li><strong>Purpose:</strong> Tracks the overall processing session and
+provides metrics on question processing success rates.</li>
+<li><strong>Columns:</strong> | Column Name | Data Type |
+Constraints/PK/FK | Description |
+|————————–|———–|—————————————|————————————————————————–| |
+<code>id</code> | string | PK | Unique identifier for the LLM
+transcription process. | | <code>transcriptionId</code> | string | FK
+-&gt; <code>transcriptions.id</code>, Unique | Identifier of the
+transcription processed. | | <code>userId</code> | string | nullable, FK
+-&gt; <code>users.id</code> | Identifier of the user associated with
+this LLM process. | | <code>saveAllInd</code> | number | | Indicator if
+answers were saved without manual review (1=true, 0=false). When true,
+indicates the review team accepted all LLM responses without human
+validation. | | <code>totalQuestionsAsked</code> | number | | Total
+number of questions the LLM was prompted with during this processing
+session. | | <code>totalQuestionsAnswered</code> | number | | Number of
+questions the LLM successfully provided a response for. Used to
+calculate success rates. | | <code>updatedAt</code> | date | | Timestamp
+of the last update. | | <code>createdAt</code> | date | | Timestamp of
+creation. | | <code>deletedAt</code> | date | nullable | Timestamp if
+the LLM transcription record is soft-deleted. |</li>
+</ul>
+<h3 id="llmtranscriptionquestions">8.
+<code>llmTranscriptionQuestions</code></h3>
+<ul>
+<li><strong>Description:</strong> Stores data for each individual
+question processed by the LLM during an <code>llmTranscriptions</code>
+instance. This table contains the raw LLM response and metadata for each
+question asked during the processing session.</li>
+<li><strong>Icon:</strong> <code>folder</code></li>
+<li><strong>Color:</strong> <code>black</code></li>
+<li><strong>Purpose:</strong> Tracks individual question processing and
+stores the raw, unprocessed LLM response for each question.</li>
+<li><strong>Key Features:</strong>
+<ul>
+<li>Supports polymorphic question references (can reference either
+<code>questions</code> or <code>communityAssessmentFields</code>)</li>
+<li>Handles grouped questions (Object String/List Questions) using
+<code>groupUuid</code> and <code>groupIndex</code></li>
+<li>Stores raw LLM response before human review and validation</li>
+</ul></li>
+<li><strong>Columns:</strong> | Column Name | Data Type |
+Constraints/PK/FK | Description |
+|———————————–|———–|———————————————————|———————————————————————————–| |
+<code>id</code> | string | PK | Unique identifier for a specific LLM
+question instance. | | <code>llmTranscriptionId</code> | string | FK
+-&gt; <code>llmTranscriptions.id</code> | Identifier of the parent LLM
+transcription process. | | <code>questionableId</code> | string | FK
+-&gt; <code>questions.id</code> OR
+<code>communityAssessmentFields.id</code> | Identifier of the question
+definition (polymorphic). | | <code>questionableType</code> | string | |
+Type of the question to resolve polymorphic <code>questionableId</code>
+(“Question” or “CommunityAssessmentField”). | | <code>isValidInd</code>
+| number | nullable | LLM’s initial response validity assessment
+(1=true, 0=false). <strong>Note:</strong> Final validity is determined
+in the <code>llmTranscriptionQuestionResponses</code> table after human
+review. | | <code>groupIndex</code> | number | nullable | For multi-part
+questions (Object String/List Questions), indicates position within the
+group. <strong>Object List Questions</strong>: All responses at the same
+position across sub-questions share the same groupIndex (1, 2, 3…).
+<strong>Object String Questions</strong>: Since there is only one
+response for each question, they all have groupIndex = 1. | |
+<code>groupUuid</code> | string | nullable | For multi-part questions, a
+UUID to group related question parts together. <strong>Object String
+Questions</strong>: All sub-fields share the same groupUuid.
+<strong>Object List Questions</strong>: All responses at the same
+position across sub-questions share the same groupUuid. <strong>Other
+question types</strong>: NULL. | | <code>rawLlmResponse</code> | string
+| | The complete, unparsed response from the LLM for this question.
+Contains the raw JSON or text response before any processing or
+validation. | | <code>llmTranscriptionQuestionProblemId</code> | string
+| nullable | Identifier for any problem noted with this LLM question
+instance. Links to a problem tracking system for debugging and
+improvement. | | <code>updatedAt</code> | date | | Timestamp of the last
+update. | | <code>createdAt</code> | date | | Timestamp of creation. | |
+<code>deletedAt</code> | date | nullable | Timestamp if this question
+instance is soft-deleted. |</li>
+</ul>
+<h3 id="llmquestionparameters">9.
+<code>llmQuestionParameters</code></h3>
+<ul>
+<li><strong>Description:</strong> Stores the parameters used to prompt
+the LLM for a specific question definition.</li>
+<li><strong>Icon:</strong> <code>folder</code></li>
+<li><strong>Color:</strong> <code>black</code></li>
+<li><strong>Columns:</strong> | Column Name | Data Type |
+Constraints/PK/FK | Description |
+|———————|————–|————————————————————————-|————————————————————————–| |
+<code>id</code> | string | PK | Unique identifier for the set of
+parameters. | | <code>questionableId</code> | string | FK -&gt;
+<code>questions.id</code> OR <code>communityAssessmentFields.id</code>,
+Unique with Type | Identifier of the question definition these
+parameters apply to. | | <code>questionableType</code> | string | | Type
+of the question to resolve polymorphic <code>questionableId</code>. | |
+<code>mainQuestion</code> | string | | The primary question text
+provided to the LLM. | | <code>instructions</code> | string | nullable |
+Additional instructions provided to the LLM. | | <code>format</code> |
+string | nullable | Specific formatting instructions for the LLM’s
+response (e.g., JSON). | | <code>retrievalQuestions</code>| string/JSON
+| nullable | List of questions/phrases used for context retrieval in
+RAG. | | <code>updatedAt</code> | date | | Timestamp of the last update.
+| | <code>createdAt</code> | date | | Timestamp of creation. | |
+<code>deletedAt</code> | date | nullable | Timestamp if these parameters
+are soft-deleted. |</li>
+</ul>
+<h3 id="llmtranscriptionquestionresponses">10.
+<code>llmTranscriptionQuestionResponses</code></h3>
+<ul>
+<li><strong>Description:</strong> Stores the final, validated responses
+for LLM-answered questions after human review. This table contains the
+authoritative answers that have been validated by the review team or
+accepted from the LLM.</li>
+<li><strong>Icon:</strong> <code>folder</code></li>
+<li><strong>Color:</strong> <code>black</code></li>
+<li><strong>Purpose:</strong> Maintains the final, validated answers for
+each question after the review process. This is the source of truth for
+question responses.</li>
+<li><strong>Key Features:</strong>
+<ul>
+<li>One-to-one relationship with <code>llmTranscriptionQuestions</code>
+(each question has exactly one final response)</li>
+<li>Tracks whether the response came from the LLM or was manually
+corrected by reviewers</li>
+<li>Stores both the final answer and any reviewer comments</li>
+<li>Special handling for Rating Questions (rating in
+<code>response</code>, comment in <code>comments</code>)</li>
+</ul></li>
+<li><strong>Review Process:</strong> When reviewers validate responses,
+they can either accept the LLM response (isFromLLmInd=1) or provide a
+corrected response (isFromLLmInd=0).</li>
+<li><strong>Columns:</strong> | Column Name | Data Type |
+Constraints/PK/FK | Description |
+|—————————-|———–|————————————————–|——————————————————————————-| |
+<code>id</code> | string | PK | Unique identifier for the response. | |
+<code>llmTranscriptionQuestionId</code> | string | FK -&gt;
+<code>llmTranscriptionQuestions.id</code>, Unique | Identifier of the
+LLM question instance this response pertains to. <strong>One-to-one
+relationship.</strong> | | <code>response</code> | string | | The final,
+validated answer. For Rating Questions, this contains the rating value
+(0-4). | | <code>comments</code> | string | nullable | Reviewer comments
+or additional notes. For Rating Questions, this contains the extracted
+comment text. | | <code>isFromLLmInd</code> | number | | Source
+indicator: 1=response came from LLM (accepted), 0=manually corrected by
+reviewer. | | <code>isValidInd</code> | number | | Validity indicator:
+1=response is correct and validated, 0=response is incorrect or needs
+revision. | | <code>options</code> | string | nullable | Any selected
+options from predefined choices, stored as JSON or delimited string. | |
+<code>updatedAt</code> | date | | Timestamp of the last update. | |
+<code>createdAt</code> | date | | Timestamp of creation. | |
+<code>deletedAt</code> | date | nullable | Timestamp if this response is
+soft-deleted. |</li>
+</ul>
+<h3 id="llmtranscriptionquestioncontext">11.
+<code>llmTranscriptionQuestionContext</code></h3>
+<ul>
+<li><strong>Description:</strong> Stores the specific context snippets
+(chunks) from the transcription that were provided to the LLM to answer
+each question. This table tracks which parts of the transcript were
+deemed relevant for each question’s answer.</li>
+<li><strong>Purpose:</strong> Maintains the RAG (Retrieval-Augmented
+Generation) context that was used to answer each question, enabling
+review and improvement of the retrieval process.</li>
+<li><strong>Key Features:</strong>
+<ul>
+<li>One-to-many relationship with <code>llmTranscriptionQuestions</code>
+(each question can have multiple relevant context snippets)</li>
+<li>Stores the actual text snippets that were retrieved and provided to
+the LLM</li>
+<li>Tracks reviewer validation of context relevance</li>
+<li>Enables analysis of RAG pipeline effectiveness</li>
+</ul></li>
+<li><strong>RAG Process:</strong> During question processing, the system
+retrieves relevant context snippets from the vector database and stores
+them here. Reviewers can then validate whether the retrieved context was
+actually relevant to answering the question.</li>
+<li><strong>Columns:</strong> | Column Name | Data Type |
+Constraints/PK/FK | Description |
+|—————————-|———–|——————————————|——————————————————————————-| |
+<code>id</code> | string | PK | Unique identifier for a context entry. |
+| <code>llmTranscriptionQuestionId</code> | string | FK -&gt;
+<code>llmTranscriptionQuestions.id</code> | Identifier of the LLM
+question instance this context is for. | | <code>context</code> | string
+| | The actual text snippet from the transcription that was provided to
+the LLM as context. | | <code>isValidInd</code> | number | | Reviewer
+validation: 1=context snippet was relevant and helpful, 0=context was
+not relevant or misleading. | | <code>updatedAt</code> | date | |
+Timestamp of the last update. | | <code>createdAt</code> | date | |
+Timestamp of creation. | | <code>deletedAt</code> | date | nullable |
+Timestamp if this context entry is soft-deleted. |</li>
+</ul>
+<h3 id="questions">12. <code>questions</code></h3>
+<ul>
+<li><strong>Description:</strong> Defines the standard set of questions
+that can be asked.</li>
+<li><strong>Columns:</strong> | Column Name | Data Type |
+Constraints/PK/FK | Description | |—————|———–|——————-|—————————————————|
+| <code>id</code> | string | PK | Unique identifier for the question
+definition. | | <code>name</code> | string | | Internal name or key for
+the question. | | <code>label</code> | string | | User-facing label or
+display text for the question. | | <code>reference</code> | string |
+Unique | A short, unique reference code for the question. | |
+<code>questionType</code>| string | nullable | Category or type of the
+question. | | <code>updatedAt</code> | date | | Timestamp of the last
+update. | | <code>createdAt</code> | date | | Timestamp of creation.
+|</li>
+</ul>
+<h3 id="communityassessmentfields">13.
+<code>communityAssessmentFields</code></h3>
+<ul>
+<li><strong>Description:</strong> Defines fields that might be part of a
+broader community assessment.</li>
+<li><strong>Columns:</strong> | Column Name | Data Type |
+Constraints/PK/FK | Description |
+|————————-|————-|——————-|——————————————————————| | <code>id</code> |
+string | PK | Unique identifier for the assessment field. | |
+<code>name</code> | string | | Name of the assessment field. | |
+<code>key</code> | string | Unique | A unique key for the field. | |
+<code>options</code> | string/JSON | nullable | Predefined options for
+the field, if any. | | <code>category</code> | string | nullable |
+Category of the assessment field. | | <code>communityAssessmentId</code>
+| string | nullable | Identifier of a parent community assessment, if
+applicable. | | <code>updatedAt</code> | date | | Timestamp of the last
+update. | | <code>createdAt</code> | date | | Timestamp of creation.
+|</li>
+</ul>
+<hr />
+<h2 id="data-validation-and-quality-assurance">Data Validation and
+Quality Assurance</h2>
+<h3 id="valid-response-criteria">Valid Response Criteria</h3>
+<p>A response is considered <strong>valid</strong> in the database when
+all of the following conditions are met:</p>
+<ol type="1">
+<li><strong>Accurate Response</strong>:
+<code>llmTranscriptionQuestionResponses.isValidInd = 1</code></li>
+<li><strong>Source Tracking</strong>:
+<code>llmTranscriptionQuestionResponses.isFromLLmInd</code> indicates
+whether the response came from the LLM (1) or was manually corrected
+(0)</li>
+<li><strong>Valid Context</strong>: At least one associated context
+snippet has
+<code>llmTranscriptionQuestionContext.isValidInd = 1</code></li>
+</ol>
+<h3 id="review-team-workflow-1">Review Team Workflow</h3>
+<p>The review team performs quality assurance on LLM responses through
+the following process:</p>
+<ol type="1">
+<li><strong>Response Validation</strong>: Reviewers examine each LLM
+response and mark it as correct (<code>isValidInd = 1</code>) or
+incorrect (<code>isValidInd = 0</code>)</li>
+<li><strong>Context Validation</strong>: Reviewers validate whether the
+retrieved context snippets were relevant to answering the question</li>
+<li><strong>Correction Process</strong>: When LLM responses are
+incorrect, reviewers provide corrected responses with
+<code>isFromLLmInd = 0</code></li>
+<li><strong>Quality Metrics</strong>: The system tracks success rates
+and identifies patterns in LLM performance</li>
+</ol>
+<hr />
+<h2 id="relationships">Relationships</h2>
+<ul>
+<li><strong><code>recordings</code> to <code>media</code>:</strong>
+<ul>
+<li><code>recordings.mediaId</code> (One) -&gt; <code>media.id</code>
+(One) <em>(Implied one-to-one link for primary media)</em></li>
+</ul></li>
+<li><strong><code>recordings</code> to <code>users</code>:</strong>
+<ul>
+<li><code>recordings.userId</code> (Many) -&gt; <code>users.id</code>
+(One)</li>
+</ul></li>
+<li><strong><code>recordings</code> to
+<code>transcriptions</code>:</strong>
+<ul>
+<li><code>recordings.id</code> (One) -&gt;
+<code>transcriptions.recordingId</code> (One)</li>
+</ul></li>
+<li><strong><code>transcriptions</code> to
+<code>llmTranscriptions</code>:</strong>
+<ul>
+<li><code>transcriptions.id</code> (One) -&gt;
+<code>llmTranscriptions.transcriptionId</code> (One)</li>
+</ul></li>
+<li><strong><code>userProfiles</code> to <code>users</code>:</strong>
+<ul>
+<li><code>userProfiles.userId</code> (One) -&gt; <code>users.id</code>
+(One)</li>
+</ul></li>
+<li><strong><code>userRoles</code> to <code>users</code>:</strong>
+<ul>
+<li><code>userRoles.userId</code> (Many) -&gt; <code>users.id</code>
+(One)</li>
+</ul></li>
+<li><strong><code>llmTranscriptions</code> to
+<code>llmTranscriptionQuestions</code>:</strong>
+<ul>
+<li><code>llmTranscriptions.id</code> (One) -&gt;
+<code>llmTranscriptionQuestions.llmTranscriptionId</code> (Many)</li>
+</ul></li>
+<li><strong><code>questions</code> to <code>llmQuestionParameters</code>
+(Polymorphic):</strong>
+<ul>
+<li><code>questions.id</code> (One) -&gt;
+<code>llmQuestionParameters.questionableId</code> (One, where
+<code>questionableType</code> = ‘Question’)</li>
+</ul></li>
+<li><strong><code>communityAssessmentFields</code> to
+<code>llmQuestionParameters</code> (Polymorphic):</strong>
+<ul>
+<li><code>communityAssessmentFields.id</code> (One) -&gt;
+<code>llmQuestionParameters.questionableId</code> (One, where
+<code>questionableType</code> = ‘CommunityAssessmentField’)</li>
+</ul></li>
+<li><strong><code>llmTranscriptionQuestions</code> to
+<code>llmTranscriptionQuestionResponses</code>:</strong>
+<ul>
+<li><code>llmTranscriptionQuestions.id</code> (One) -&gt;
+<code>llmTranscriptionQuestionResponses.llmTranscriptionQuestionId</code>
+(One)</li>
+</ul></li>
+<li><strong><code>llmTranscriptionQuestions</code> to
+<code>llmTranscriptionQuestionContext</code>:</strong>
+<ul>
+<li><code>llmTranscriptionQuestions.id</code> (One) -&gt;
+<code>llmTranscriptionQuestionContext.llmTranscriptionQuestionId</code>
+(Many)</li>
+</ul></li>
+<li><strong><code>llmTranscriptionQuestions</code> to
+<code>communityAssessmentFields</code> (Polymorphic):</strong>
+<ul>
+<li><code>llmTranscriptionQuestions.questionableId</code> (Many) -&gt;
+<code>communityAssessmentFields.id</code> (One, where
+<code>questionableType</code> = ‘CommunityAssessmentField’)</li>
+</ul></li>
+<li><strong><code>llmTranscriptionQuestions</code> to
+<code>questions</code> (Polymorphic):</strong>
+<ul>
+<li><code>llmTranscriptionQuestions.questionableId</code> (Many) -&gt;
+<code>questions.id</code> (One, where <code>questionableType</code> =
+‘Question’)</li>
+</ul></li>
+</ul>
+<p><strong>Relationship Key:</strong> * <code>(One) -&gt; (One)</code>:
+One-to-One * <code>(Many) -&gt; (One)</code>: Many-to-One *
+<code>(One) -&gt; (Many)</code>: One-to-Many</p>

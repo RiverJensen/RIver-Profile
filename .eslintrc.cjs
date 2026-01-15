@@ -1,6 +1,10 @@
 module.exports = {
   root: true,
-  env: { browser: true, es2020: true },
+  env: { 
+    browser: true, 
+    es2020: true,
+    node: true, // Add Node.js environment for server files
+  },
   extends: [
     'eslint:recommended',
     'plugin:react/recommended',
@@ -17,5 +21,13 @@ module.exports = {
       'warn',
       { allowConstantExport: true },
     ],
+    'no-unused-vars': ['warn', { argsIgnorePattern: '^_' }], // Allow unused vars prefixed with _
   },
+  overrides: [
+    {
+      // Server-side files
+      files: ['server/**/*.js', 'database/**/*.js'],
+      env: { node: true, browser: false },
+    },
+  ],
 }

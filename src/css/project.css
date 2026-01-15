@@ -1,7 +1,27 @@
-.github{
-    height: 100px;
-    width: 100px;
-    margin: 0 auto;
-    color: black;
+.project-page-container {
+  max-width: 1000px;
+  margin: 80px auto;
+  padding: var(--spacing-lg);
+  text-align: center;
 }
 
+.project-title {
+  font-size: 2.5em;
+  font-weight: 700;
+  margin-bottom: var(--spacing-md);
+  color: var(--secondary-color);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  border-bottom: 2px solid var(--primary-color);
+  display: inline-block;
+  padding-bottom: 10px;
+}
+
+.project-description {
+  font-size: 1.1em;
+  color: var(--text-muted);
+  margin-bottom: var(--spacing-xl);
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}

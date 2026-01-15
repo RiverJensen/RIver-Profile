@@ -1,8 +1,5 @@
-import React from "react";
-import "../css/project.css";
 import { useState } from "react";
-import githubimg from "../assets/github.png";
-import linkinimg from "../assets/linkin.png";
+import "../css/project.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 
 function Links() {
@@ -35,7 +32,7 @@ function Links() {
   return (
     <div>
       <i
-        class="bi bi-github"
+        className="bi bi-github"
         onClick={gitHubLink}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
@@ -44,7 +41,7 @@ function Links() {
         }}
       ></i>
       <i
-        class="bi bi-linkedin"
+        className="bi bi-linkedin"
         onClick={linkInLink}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}

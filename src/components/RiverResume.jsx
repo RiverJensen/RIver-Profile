@@ -1,4 +1,3 @@
-import React from "react";
 import MyResume from "../assets/RiverJensen_Resume.pdf";
 
 function RiverResume() {

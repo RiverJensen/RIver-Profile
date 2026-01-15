@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 import "../css/game.css";
 import Scoreboard from "./Scoreboard";
@@ -54,8 +54,10 @@ function CoinFlip() {
 
       if (response.status === 200) {
         setMessage("Score saved successfully!");
+        setPlayerName(""); // Clear player name
         resetGame();
-        window.location.reload();
+        // Optionally refresh scoreboard without full page reload
+        // You could add a callback prop to refresh Scoreboard component instead
       } else {
         setMessage("Failed to save score.");
       }

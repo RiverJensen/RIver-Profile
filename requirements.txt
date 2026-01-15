@@ -1,0 +1,35 @@
+System Requirements and Dependencies
+====================================
+
+Core Runtime
+------------
+- Node.js: v18.0.0 or higher (Developed on v24.1.0)
+- npm: v9.0.0 or higher
+- Database: PostgreSQL (v14 or higher recommended)
+
+Frontend Dependencies
+---------------------
+- React: ^18.2.0
+- React DOM: ^18.2.0
+- React Router DOM: ^6.22.3
+- Vite: ^5.2.6
+- Bootstrap: ^5.3.3
+- React Bootstrap: ^2.10.5
+- Bootstrap Icons: ^1.11.3
+- Axios: ^1.6.8
+
+Backend Dependencies
+--------------------
+- Express: ^4.19.2
+- Vite Express: ^0.16.0
+- Sequelize: ^6.37.3
+- PostgreSQL Client (pg): ^8.13.0
+- Express Session: ^1.18.0
+- Morgan: ^1.10.0
+
+Development Dependencies
+------------------------
+- ESLint: ^8.57.0
+- Vite Plugin React: ^4.2.1
+
+Note: The symbol '^' indicates compatibility with the specified version (i.e., it will accept minor version updates but not major breaking changes).

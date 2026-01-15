@@ -1,0 +1,56 @@
+<h1 id="rag-pipeline-resident-interviews">RAG Pipeline (resident
+interviews)</h1>
+<p><strong>By Steven Stemmer</strong><br />
+<strong>Last Updated:</strong> 1 day ago</p>
+<h2 id="overview">Overview</h2>
+<p>This document outlines our LLM-powered pipeline designed to automate
+the extraction of key information from resident interviews in the TSO
+Life app, aiming to efficiently populate resident profiles.</p>
+<h2 id="related-documents">Related Documents</h2>
+<ul>
+<li><strong>Database Schema Document:</strong> database_schema.md</li>
+<li><strong>Question Formats Document:</strong> QUESTION_FORMATS.md</li>
+<li><strong>Pipeline Explained:</strong> Video Presentation Link</li>
+</ul>
+<h2 id="how-it-works">How it Works</h2>
+<h3 id="input-preprocessing">Input &amp; Preprocessing</h3>
+<p>Audio recordings from interviews are transcribed. These transcripts
+are then chunked and indexed into a vector database based on semantic
+meaning.</p>
+<h3 id="information-extraction-rag-pipeline">Information Extraction (RAG
+Pipeline)</h3>
+<p>We use a Retrieval Augmented Generation (RAG) approach. For a
+predefined set of ~80 questions, the system retrieves the most relevant
+text snippets from the transcript. An LLM then uses these snippets and
+the original question to generate an answer. This minimizes
+hallucination and focuses the LLM on the provided text.</p>
+<h3 id="human-review-validation">Human Review &amp; Validation</h3>
+<p>The LLM’s answers, along with the context it used, are presented to a
+review team via a “data mine form.” This team verifies accuracy, makes
+corrections, and identifies the precise context for the correct
+answer.</p>
+<h3 id="data-storage-llm-improvement">Data Storage &amp; LLM
+Improvement</h3>
+<p>All data, including LLM responses, reviewer corrections, and
+validated context, is stored in our relational database. This validated
+data is crucial for creating training sets to fine-tune and continuously
+improve the LLM’s performance.</p>
+<h2 id="current-status-benefits">Current Status &amp; Benefits</h2>
+<ul>
+<li>The pipeline successfully automates extracting information from
+audio interviews</li>
+<li>The review interface facilitates quality control and captures
+valuable data for LLM training</li>
+<li>We are actively collecting data to enhance the LLM’s accuracy</li>
+</ul>
+<h2 id="key-challenge-next-steps">Key Challenge &amp; Next Steps</h2>
+<p>A primary challenge is efficiently consolidating validated data for
+training, especially for complex, multi-part questions where answers and
+their components are stored across multiple database entries. Currently,
+this involves some manual, script-based processing for specific question
+types.</p>
+<p>Our immediate focus is to develop a more robust, automated pipeline
+to generate comprehensive training data directly from our validated
+database records. This will streamline the LLM fine-tuning process,
+improve model accuracy across all question types, and ensure
+scalability.</p>

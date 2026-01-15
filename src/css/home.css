@@ -1,59 +1,83 @@
-body,
-html {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  width: 100%;
-  overflow: hidden;
-}
-
 .home-page-info {
-  border: 2px solid black;
-  padding: 10px;
-  border-radius: 10px;
-  background-color: rgba(0, 0, 0, 0.75);
-}
-
-.home-page-info {
-  padding: 20px;
-  max-width: 800px;
-  margin: auto;
+  background-color: var(--bg-overlay);
+  backdrop-filter: blur(10px); /* Glassmorphism effect */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--border-radius);
+  padding: var(--spacing-xl);
+  max-width: 900px;
+  margin: 60px auto; /* More spacing from top */
   text-align: center;
-  font-family: Arial, sans-serif;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  animation: fadeIn 0.8s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .FrontPageGreet {
-  font-size: 2.5em;
-  margin-bottom: 20px;
-  color: white;
+  font-size: 3em;
+  font-weight: 800;
+  margin-bottom: var(--spacing-md);
+  background: linear-gradient(120deg, var(--secondary-color), var(--primary-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; /* Gradient Text */
 }
 
 .FrontPage {
-  font-size: 1.1em;
-  line-height: 1.6;
-  color: white;
-  margin: 20px 0;
+  font-size: 1.15em;
+  color: #e0e0e0;
+  margin-bottom: var(--spacing-lg);
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-button {
-  padding: 10px 20px;
+/* Button Group */
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-lg);
+  flex-wrap: wrap;
+}
+
+.btn-primary {
+  padding: 12px 24px;
   font-size: 1em;
-  color: rgba(46, 230, 230, 0.9);
+  color: #121212;
+  background-color: var(--primary-color);
   border: none;
-  border-radius: 5px;
+  border-radius: var(--border-radius);
   cursor: pointer;
-  background-color: gray;
-  margin: 10px;
-  
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
-button:hover {
-  color: gray !important;
+.btn-primary:hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(46, 230, 230, 0.3);
+}
 
-  background-color: rgba(46, 230, 230, 0.9);
+.btn-secondary {
+  padding: 12px 24px;
+  font-size: 1em;
+  color: var(--primary-color);
+  background-color: transparent;
+  border: 2px solid var(--primary-color);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+}
+
+.btn-secondary:hover {
+  background-color: rgba(46, 230, 230, 0.1);
+  transform: translateY(-2px);
 }
 
 iframe {
-  margin-top: 20px;
-  border: none;
+  margin-top: var(--spacing-lg);
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }

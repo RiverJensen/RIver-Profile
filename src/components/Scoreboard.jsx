@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios"; // Import axios
 import "../css/game.css"; // Link to your CSS file
 
@@ -12,9 +12,8 @@ function Scoreboard() {
       if (res.data.users && res.data.users.length > 0) {
         const sortedUsers = res.data.users.sort((a, b) => b.score - a.score); // Sort users by score
 
-        setUsernames(sortedUsers.map((user) => user.username)); // {river: 10, john: 5, jane: 3}
+        setUsernames(sortedUsers.map((user) => user.username));
         setScores(sortedUsers.map((user) => user.score));
-        console.log("No users found");
       }
     } catch (error) {
       console.error("Error fetching user info:", error);

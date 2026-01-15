@@ -13,6 +13,8 @@ const AboutPage = () => {
     <div>
       <h1>List of things I like</h1>
       <h2>Things I do</h2> {/* Changed second heading to h2 for better semantics */}
+
+      <h1> I am a Juiorn de</h1>
       
       <Carousel>
         {/* First Slide */}
